@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+
+  name: ecommerce-web
+
+spec:
+
+  replicas: 2
+
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+
+      maxSurge: 1
+
+      maxUnavailable: 1
+
+  minReadySeconds: 5 
+  selector:
+    matchLabels:
+      app: ecommerce-web
+  template:
+
+    metadata:
+
+      labels:
+
+        app: ecommerce-web
+
+    spec:
+
+      containers:
+
+      - name: mhc-front
+
+        image: __AzureCR__/ecommerce.web:latest
+
+        imagePullPolicy: Always
+
+        ports:
+
+        - containerPort: 80
+
+        resources:
+
+          requests:
+
+            cpu: 250m
+
+          limits:
+
+            cpu: 500m
+
+        
+
+---
+
+apiVersion: v1
+
+kind: Service
+
+metadata:
+
+  name: ecommerce-web
+
+spec:
+
+  type: LoadBalancer
+
+  ports:
+
+  - port: 80
+
+  selector:
+    app: ecommerce-web

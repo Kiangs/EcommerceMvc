@@ -34,9 +34,9 @@ spec:
 
       containers:
 
-      - name: mhc-front
+      - name: ecommerce-web
 
-        image: __AzureCR__/ecommerce.web:latest
+        image: ecommerceaks2020.azurecr.io/kiangs/ecommercemvc:latest
 
         imagePullPolicy: Always
 
